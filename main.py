@@ -30,8 +30,16 @@ def insert():
     else:
         db = msc.connect(host='localhost', user='root', passwd=os.environ.get('PASSWD'), database='task', auth_plugin='mysql_native_password')
         cur = db.cursor()
-        cur.execute("INSERT INTO task.taskDetails")
-
+        cur.execute("INSERT INTO task.taskDet (tPrio,tTit,tLoc) VALUES (%s,%s,%s)", (p,t,l))
+        db.commit()
+        entPrio.delete(0, "end")
+        entTit.delete(0, "end")
+        entLoc.delete(0, "end")
+        # show()
+        mb.showinfo("Insert status", "Data Inserted Successfully")
+        db.close()
+inBtn = Button(win, text="Insert", font=("Sans", 12), bg="white", command=insert)
+inBtn.place(x=20,y=160)
 showData = Listbox(win)
 showData.place(x=330, y=30)
 # show()

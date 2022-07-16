@@ -61,6 +61,21 @@ def update():
 upBtn = Button(win, text="Update", fornt=("Sans",12), bg="white", command=update)
 upBtn.place(x=80,y=160)
 
+def getTasks():
+    if(entTit.get()==""):
+        mb.showwarning("Get Status", "Please enter the title of the task you wish to get.")
+    else:
+        db = msc.connect(host='localhost', user='root', passwd=os.environ.get('PASSWD'), database='task', auth_plugin='mysql_native_password')
+        cur = db.cursor()
+        cur.execute("SELECT * FROM taskDet where tTit="+entTit.get()+"")
+        rows = cur.fetchall()
+        for row in rows:
+            entPrio.insert(0, row[1])
+            entLoc.insert(0, row[2])
+        db.close()
+getBtn = Button(win, text="Get", font=("Sans", 12), bg="white", command=getTasks)
+getBtn.place(x=150,y=160)
+
 showData = Listbox(win)
 showData.place(x=330, y=30)
 # show()

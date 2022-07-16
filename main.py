@@ -40,6 +40,27 @@ def insert():
         db.close()
 inBtn = Button(win, text="Insert", font=("Sans", 12), bg="white", command=insert)
 inBtn.place(x=20,y=160)
+
+def update():
+    p = entPrio.get()
+    t = entTit.get()
+    l = entLoc.get()
+    if(p=="" or t=="" or l==""):
+        mb.showwarning("Cannot Update", "All Fields Required")
+    else:
+        db = msc.connect(host='localhost', user='root', passwd=os.environ.get('PASSWD'), database='task', auth_plugin='mysql_native_password')
+        cur = db.cursor()
+        cur.execute("UPDATE taskDet set tPrio=%s,tLoc=%s where tTit=%s", (p,l,t))
+        db.commit()
+        entPrio.delete(0, "end")
+        entTit.delete(0, "end")
+        entLoc.delete(0, "end")
+        #show()
+        mb.showinfo("Update Status:", "Data Updated Successfully")
+        db.close()
+upBtn = Button(win, text="Update", fornt=("Sans",12), bg="white", command=update)
+upBtn.place(x=80,y=160)
+
 showData = Listbox(win)
 showData.place(x=330, y=30)
 # show()

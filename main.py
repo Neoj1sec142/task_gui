@@ -76,6 +76,24 @@ def getTasks():
 getBtn = Button(win, text="Get", font=("Sans", 12), bg="white", command=getTasks)
 getBtn.place(x=150,y=160)
 
+def delete():
+    if(entTit.get()==""):
+        mb.showwarning("Please provide the title of the task you wish to delete.")
+    else:
+        db = msc.connect(host='localhost', user='root', passwd=os.environ.get('PASSWD'), database='task', auth_plugin='mysql_native_password')
+        cur = db.cursor()
+        cur.execute("DELETE FROM taskDet where tTit="+entTit.get()+"")
+        db.commit()
+        entPrio.delete(0, "end")
+        entTit.delete(0, "end")
+        entLoc.delete(0, "end")
+        # show()
+        mb.showinfo("Delete Status", "Data Deleted Successfully")
+        db.close()
+dltBtn = Button(win, text="Delete", font=("Sans", 12), bg="white", command=delete)
+dltBtn.place(x=210,y=160)
+
+
 showData = Listbox(win)
 showData.place(x=330, y=30)
 # show()

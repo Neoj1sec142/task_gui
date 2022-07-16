@@ -4,7 +4,7 @@ from tkinter import messagebox as mb
 import mysql.connector as msc
 
 win = Tk()
-win.geometry("800x470")
+win.geometry("740x325")
 win.title("Task Management CRUD App")
 
 tId = Label(win, text="ID:", font=("Serif", 12))
@@ -45,7 +45,7 @@ def insert():
         mb.showinfo("Insert status", "Data Inserted Successfully")
         db.close()
 inBtn = Button(win, text="Insert", font=("Sans", 12), bg="white", command=insert)
-inBtn.place(x=20,y=160)
+inBtn.place(x=45,y=160)
 
 def update():
     iD = entId.get()
@@ -67,7 +67,7 @@ def update():
         mb.showinfo("Update Status:", "Data Updated Successfully")
         db.close()
 upBtn = Button(win, text="Update", font=("Sans",12), bg="white", command=update)
-upBtn.place(x=80,y=160)
+upBtn.place(x=105,y=160)
 
 def getTasks():
     if(entId.get()==""):
@@ -83,7 +83,7 @@ def getTasks():
             entLoc.insert(0, row[2])
         db.close()
 getBtn = Button(win, text="Get", font=("Sans", 12), bg="white", command=getTasks)
-getBtn.place(x=150,y=160)
+getBtn.place(x=175,y=160)
 
 def delete():
     if(entId.get()==""):
@@ -101,7 +101,7 @@ def delete():
         mb.showinfo("Delete Status", "Data Deleted Successfully")
         db.close()
 dltBtn = Button(win, text="Delete", font=("Sans", 12), bg="white", command=delete)
-dltBtn.place(x=210,y=160)
+dltBtn.place(x=230,y=160)
 
 def reset():
     entId.delete(0, "end")
@@ -123,6 +123,6 @@ def show():
     db.close()
 
 showData = Listbox(win)
-showData.place(x=330, y=30)
+showData.place(x=450, y=85)
 show()
 win.mainloop()
